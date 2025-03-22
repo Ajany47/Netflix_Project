@@ -172,19 +172,16 @@ GROUP BY 1;
 return top 5 year with highest avg content release!
 
 ```sql
-SELECT 
-    country,
-    release_year,
-    COUNT(show_id) AS total_release,
-    ROUND(
-        COUNT(show_id)::numeric /
-        (SELECT COUNT(show_id) FROM netflix WHERE country = 'India')::numeric * 100, 2
-    ) AS avg_release
+SELECT
+  EXTRACT(YEAR FROM TO_DATE(date_added, 'Month DD, YYYY')) AS release_year,
+  COUNT(*) AS yearly_content,
+  ROUND(COUNT(*)::NUMERIC / (SELECT COUNT(DISTINCT EXTRACT(YEAR FROM TO_DATE(date_added, 'Month DD, YYYY'))) 
+                             FROM netflix WHERE country = 'India'), 2) AS avg_content_per_year
 FROM netflix
 WHERE country = 'India'
-GROUP BY country, release_year
-ORDER BY avg_release DESC
-LIMIT 5;
+GROUP BY 1
+ORDER BY yearly_content DESC
+LIMIT 5
 ```
 
 **Objective:** Calculate and rank years by the average number of content releases by India.
