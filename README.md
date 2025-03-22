@@ -13,7 +13,7 @@ Explore and categorize content based on specific criteria and keywords.
 Dataset
 The data for this project is sourced from the Kaggle dataset:
 
-Dataset Link: Movies Dataset
+#### Dataset Link: Movies Dataset
 Schema
 DROP TABLE IF EXISTS netflix;
 CREATE TABLE netflix
@@ -31,8 +31,8 @@ CREATE TABLE netflix
     listed_in    VARCHAR(250),
     description  VARCHAR(550)
 );
-Business Problems and Solutions
-1. Count the Number of Movies vs TV Shows
+### Business Problems and Solutions
+# 1. Count the Number of Movies vs TV Shows
 SELECT 
     type,
     COUNT(*)
@@ -40,7 +40,7 @@ FROM netflix
 GROUP BY 1;
 Objective: Determine the distribution of content types on Netflix.
 
-2. Find the Most Common Rating for Movies and TV Shows
+# 2. Find the Most Common Rating for Movies and TV Shows
 WITH RatingCounts AS (
     SELECT 
         type,
@@ -64,13 +64,13 @@ FROM RankedRatings
 WHERE rank = 1;
 Objective: Identify the most frequently occurring rating for each type of content.
 
-3. List All Movies Released in a Specific Year (e.g., 2020)
+# 3. List All Movies Released in a Specific Year (e.g., 2020)
 SELECT * 
 FROM netflix
 WHERE release_year = 2020;
 Objective: Retrieve all movies released in a specific year.
 
-4. Find the Top 5 Countries with the Most Content on Netflix
+# 4. Find the Top 5 Countries with the Most Content on Netflix
 SELECT * 
 FROM
 (
