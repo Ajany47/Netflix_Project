@@ -191,7 +191,8 @@ LIMIT 5
 ```sql
 SELECT * 
 FROM netflix
-WHERE listed_in LIKE '%Documentaries';
+WHERE type = 'Movie' 
+AND listed_in ILIKE '%Documentaries%'
 ```
 
 **Objective:** Retrieve all movies classified as documentaries.
