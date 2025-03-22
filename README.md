@@ -168,7 +168,7 @@ GROUP BY 1;
 
 **Objective:** Count the number of content items in each genre.
 
-### 10.Find each year and the average numbers of content release in India on netflix. 
+### 10.Find each year and the average numbers of content release in Nigeria on netflix. 
 return top 5 year with highest avg content release!
 
 ```sql
@@ -176,9 +176,9 @@ SELECT
   EXTRACT(YEAR FROM TO_DATE(date_added, 'Month DD, YYYY')) AS release_year,
   COUNT(*) AS yearly_content,
   ROUND(COUNT(*)::NUMERIC / (SELECT COUNT(DISTINCT EXTRACT(YEAR FROM TO_DATE(date_added, 'Month DD, YYYY'))) 
-                             FROM netflix WHERE country = 'India'), 2) AS avg_content_per_year
+                             FROM netflix WHERE country = 'Nigeria'), 2) AS avg_content_per_year
 FROM netflix
-WHERE country = 'India'
+WHERE country = 'Nigeria'
 GROUP BY 1
 ORDER BY yearly_content DESC
 LIMIT 5
@@ -218,20 +218,20 @@ WHERE casts LIKE '%Salman Khan%'
 
 **Objective:** Count the number of movies featuring 'Salman Khan' in the last 10 years.
 
-### 14. Find the Top 10 Actors Who Have Appeared in the Highest Number of Movies Produced in India
+### 14. Find the Top 10 Actors Who Have Appeared in the Highest Number of Movies Produced in Nigeria
 
 ```sql
 SELECT 
     UNNEST(STRING_TO_ARRAY(casts, ',')) AS actor,
     COUNT(*)
 FROM netflix
-WHERE country = 'India'
+WHERE country = 'Nigeria'
 GROUP BY actor
 ORDER BY COUNT(*) DESC
 LIMIT 10;
 ```
 
-**Objective:** Identify the top 10 actors with the most appearances in Indian-produced movies.
+**Objective:** Identify the top 10 actors with the most appearances in Nigerian-produced movies.
 
 ### 15. Categorize Content Based on the Presence of 'Kill' and 'Violence' Keywords
 
@@ -252,11 +252,51 @@ GROUP BY category;
 
 **Objective:** Categorize content as 'Bad' if it contains 'kill' or 'violence' and 'Good' otherwise. Count the number of items in each category.
 
+### 16. Find the Top 10 Actors Who Have Appeared in the Highest Number of Movies Produced in India
+
+```sql
+SELECT 
+    UNNEST(STRING_TO_ARRAY(casts, ',')) AS actor,
+    COUNT(*)
+FROM netflix
+WHERE country = 'India'
+GROUP BY actor
+ORDER BY COUNT(*) DESC
+LIMIT 10;
+```
+
+**Objective:** Identify the top 10 actors with the most appearances in Indian-produced movies.
+
+### 17. Find how many movies actor Toyin Abraham' appeared in the last 10 years
+
+```sql
+SELECT COUNT(*) AS num_movies
+FROM netflix
+WHERE type = 'Movie'
+AND casts ILIKE '%Toyin Abraham%'
+AND release_year >= EXTRACT(YEAR FROM CURRENT_DATE) - 10
+```
+
+**Objective:** Count the number of movies featuring 'Toyin Abraham' in the last 10 years
+
+### 18 Is there any Director Kunle Afolayan and how many movies/shows he directed?
+
+```sql
+SELECT 
+    director, 
+    COUNT(*) AS total_content
+FROM netflix
+WHERE director ILIKE '%Kunle Afolayan%'
+GROUP BY 1
+```
+
+**Objective:** Count the number of movies featuring 'Toyin Abraham' in the last 10 years
+
 ## Findings and Conclusion
 
 - **Content Distribution:** The dataset contains a diverse range of movies and TV shows with varying ratings and genres.
 - **Common Ratings:** Insights into the most common ratings provide an understanding of the content's target audience.
-- **Geographical Insights:** The top countries and the average content releases by India highlight regional content distribution.
+- **Geographical Insights:** The top countries and the average content releases by Nigeria and India highlight regional content distribution.
 - **Content Categorization:** Categorizing content based on specific keywords helps in understanding the nature of content available on Netflix.
 
 This analysis provides a comprehensive view of Netflix's content and can help inform content strategy and decision-making.
