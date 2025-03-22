@@ -250,6 +250,18 @@ FROM (
 GROUP BY category;
 ```
 
+```sql
+SELECT 
+    CASE 
+        WHEN description ILIKE '%kill%' OR description ILIKE '%violence%' THEN 'Bad'
+        ELSE 'Good'
+    END AS content_category,
+    COUNT(*) AS total_count
+FROM netflix
+GROUP BY content_category;
+
+```
+
 **Objective:** Categorize content as 'Bad' if it contains 'kill' or 'violence' and 'Good' otherwise. Count the number of items in each category.
 
 ### 16. Find the Top 10 Actors Who Have Appeared in the Highest Number of Movies Produced in India
@@ -290,7 +302,7 @@ WHERE director ILIKE '%Kunle Afolayan%'
 GROUP BY 1
 ```
 
-**Objective:** Count the number of movies featuring 'Toyin Abraham' in the last 10 years
+**Objective:** Count the number of movies/shows tha Kunle Afolayan directed
 
 ## Findings and Conclusion
 
